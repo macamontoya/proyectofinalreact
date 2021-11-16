@@ -68,7 +68,7 @@ export default class menu extends Component {
                 {this.state.loggedIn ? 
                 ( <Drawer.Navigator>
                     <Drawer.Screen name="home" component= {()=><Home/>}/>
-                    <Drawer.Screen name="newpost" component= {()=><Newpost/>}/>
+                    <Drawer.Screen name="newpost" component= {(drawerProps)=><Newpost drawerProps ={drawerProps}/>}/> 
                     <Drawer.Screen name="profile" component= {()=><Profile logout={(email, pass)=>this.logout(email, pass)}/>}/>
                 </Drawer.Navigator>
 
