@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, TouchableOpacity } from 'react-native'
 
-export default class Home extends Component {
+export default class register extends Component {
     constructor(props){
         super(props)
         this.state={
