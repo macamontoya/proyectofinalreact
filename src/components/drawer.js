@@ -17,6 +17,9 @@ export default class menu extends Component {
                 <Drawer.Navigator>
                     <Drawer.Screen name="home" component= {()=><Home/>}/>
                     <Drawer.Screen name="register" component= {()=><Register/>}/>
+
+
+                    
                 </Drawer.Navigator>
             </NavigationContainer>
         )
