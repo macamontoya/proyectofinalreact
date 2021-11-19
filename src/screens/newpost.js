@@ -25,6 +25,8 @@ export default class newpost extends Component {
             texto: this.state.textoPost, // descripcion del text
             createdAt: Date.now(),
             photo: this.state.url, //link d foto
+            likes: [],
+            comentarios:[],
         })
         .then( ()=>{ //Limpiar el form de carga
             this.setState({
