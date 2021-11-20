@@ -14,7 +14,8 @@ export default class menu extends Component {
         super()
         this.state={
             loggedIn: false,
-            user: ''
+            user: '',
+            error:''
         }
         //usamos la info del login de abajo
     }
@@ -23,7 +24,7 @@ export default class menu extends Component {
             if(user){
                 this.setState({
                     loggedIn:true,
-                    user: user,
+                    user: user, 
                 })
             }
         })
@@ -37,8 +38,11 @@ export default class menu extends Component {
                 })
                 console.log('Registrado');
             })
-            .catch( error => {
-                console.log(error);
+            .catch( e => {this.setState ({
+                error:e.message 
+                // capturo los errores
+            })
+               
             })
     }
     login(email,pass){
@@ -49,7 +53,10 @@ export default class menu extends Component {
                     user:response.user,
                 })
             })
-            .catch(e => console.log(e))
+            .catch(e => this.setState ({
+                error:e.message 
+                // capturo los errores
+            }))
     }
 
     logout(){
@@ -72,13 +79,13 @@ export default class menu extends Component {
                 ( <Drawer.Navigator>
                     <Drawer.Screen name="home" component= {()=><Home/>}/>
                     <Drawer.Screen name="newpost" component= {(drawerProps)=><Newpost drawerProps ={drawerProps}/>}/> 
-                    <Drawer.Screen name="profile" component= {()=><Profile logout={(email, pass)=>this.logout(email, pass)}/>}/>
+                    <Drawer.Screen name="profile" component= {()=><Profile user={this.state.user}logout={(email, pass)=>this.logout(email, pass)}/>}/>
                 </Drawer.Navigator>
 
                 ):(
                     <Drawer.Navigator>
                     <Drawer.Screen name="register" component= {()=><Register register={(email, pass, user)=>this.register(email, pass, user)}/>}/>
-                    <Drawer.Screen name="login" component= {()=><Login login={(email, pass)=>this.login(email, pass)}/>}/>
+                    <Drawer.Screen name="login" component= {()=><Login error ={this.state.error} login={(email, pass)=>this.login(email, pass)}/>}/>
                 </Drawer.Navigator>
                 )}
                 
