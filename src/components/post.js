@@ -18,23 +18,26 @@ class Posteos extends Component {
 
     componentDidMount() {
         console.log(this.props.data);
-        this.setState({ //ponemos el estado segun los likes que tenga guardados en firebase
-             likes: this.props.data.data.likes.length, 
-             MeGusta: this.props.data.data.likes.includes(auth.currentUser.email) //preguntamos si el usuario likeo la foto, si esta likeadp marco el like.
-    
-        })
+        if(this.props.data.data.likes){ //existen likes?
+            this.setState({ //ponemos el estado segun los likes que tenga guardados en firebase
+                likes: this.props.data.data.likes.length, //guardo la cantidad de likes que hay en el post
+                MeGusta: this.props.data.data.likes.includes(auth.currentUser.email) // esta  mi like en la lista
+            }) //preguntamos si el usuario likeo la foto, si esta likeadp marco el like.
+       
+        }
+       
     }
     
     MeGusta() {
-        let post = db.collection("posts").doc(this.props.data.id);
+        let post = db.collection("posts").doc(this.props.data.id); 
 
-        post.update({
-            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
+        post.update({ //actualiza el campo likes
+            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)// el valor que estaba antes, como es una lista de emails ()arrayunion sumale mi like 
         })
         .then(() => {
             this.setState({
-                likes: this.state.likes + 1,
-                MeGusta: true
+                likes: this.state.likes + 1, //a la cantidad sumale uno
+                MeGusta: true //mi like existe
             })
         })
         .catch((error) => {
@@ -43,10 +46,10 @@ class Posteos extends Component {
     }
         
     noMeGusta() {
-            let post = db.collection("posts").doc(this.props.data.id); 
+            let post = db.collection("posts").doc(this.props.data.id);  //colleccion d post en este en particular
     
             post.update({
-                likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email) //se fija en firebase si el usuario tiene likeadfo la foto y lo saca si esta  
+                likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email) //array remove, saca mi email de lista d likes. se fija en firebase si el usuario tiene likeadfo la foto y lo saca si esta  
             })
             .then(() => {
                 this.setState({
@@ -59,19 +62,6 @@ class Posteos extends Component {
             });
         }
          //desde newpost le paso la info al post
-     ContadorLikes() { //creamos var que agarra los likes del posteo
-            let ContadorLikes = this.props.data.data.likes;
-            if (ContadorLikes) {
-                this.setState({ //seteamos el estado en los likes 
-                    likes: ContadorLikes.length
-                })
-            }
-            if(likes.includes(auth.currentUser.email)) {    
-                this.setState({
-                    MeGusta: true
-                })
-            }
-        }
      
          openModal() {
             this.setState({
@@ -129,7 +119,8 @@ class Posteos extends Component {
             return (
             <View style={styles.container}>
                 <View style={styles.Foto}>
-                    <Image style={styles.imagen} source={this.props.data.data.foto}></Image>
+                    <Image style={styles.imagen} source={{uri:this.props.data.data.photo}}></Image> 
+                    {/* cuando busco la imagen en un link, por eso usamos uri: */}
                 </View>
                
                 {/* Botones de los posteos */}
