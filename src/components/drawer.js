@@ -29,9 +29,12 @@ export default class menu extends Component {
         })
     }
 
-    register(email, pass){
+    register(email, pass, user){
         auth.createUserWithEmailAndPassword(email, pass) //recibe dos datos, mail y contra, lo tenemos aca pq toda nuestra pagina tiene que saber si el usuario esta registrado o no, por eso usamos los params
             .then( ()=>{
+                auth.currentUser.updateProfile({
+                    displayName:user //guardo nombre us, dispName es de firebase
+                })
                 console.log('Registrado');
             })
             .catch( error => {
@@ -74,7 +77,7 @@ export default class menu extends Component {
 
                 ):(
                     <Drawer.Navigator>
-                    <Drawer.Screen name="register" component= {()=><Register register={(email, pass)=>this.register(email, pass)}/>}/>
+                    <Drawer.Screen name="register" component= {()=><Register register={(email, pass, user)=>this.register(email, pass, user)}/>}/>
                     <Drawer.Screen name="login" component= {()=><Login login={(email, pass)=>this.login(email, pass)}/>}/>
                 </Drawer.Navigator>
                 )}

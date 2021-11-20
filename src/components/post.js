@@ -12,7 +12,8 @@ class Posteos extends Component {
             likes: 0, //cero likes 
             MeGusta: false, //el usuario no likeo
             showModal: false, //comentarios
-            comment: [], 
+            comments: [], //lista de coments
+            comment:'', //para escribir el coment
         }
     }
 
@@ -25,6 +26,12 @@ class Posteos extends Component {
             }) //preguntamos si el usuario likeo la foto, si esta likeadp marco el like.
        
         }
+        if(this.props.data.data.comments){
+            this.setState({
+                comments:this.props.data.data.comments
+            })
+
+        }
        
     }
     
@@ -36,7 +43,7 @@ class Posteos extends Component {
         })
         .then(() => {
             this.setState({
-                likes: this.state.likes + 1, //a la cantidad sumale uno
+                likes: this.props.data.data.likes.length, //vuelvo a traerme la cant de likes
                 MeGusta: true //mi like existe
             })
         })
@@ -53,7 +60,7 @@ class Posteos extends Component {
             })
             .then(() => {
                 this.setState({
-                    likes: this.state.likes - 1,
+                    likes: this.props.data.data.likes.length,
                     MeGusta: false
                 })
             })
@@ -80,14 +87,14 @@ class Posteos extends Component {
             let oneComment = {
                 createdAt: Date.now(),
                 author: auth.currentUser.displayName,
-                comment: this.state.comment, 
+                comment: this.state.comment, //uso lo de linea 15, lleno el estado vacio 
             }
              db.collection('posts').doc(this.props.data.id).update({
                comments:firebase.firestore.FieldValue.arrayUnion(oneComment)
             })
             .then(()=>{
                 this.setState({
-                    showModal:false,
+                 comments:this.props.data.data.comments, //actualizo la lista de comments 
                     comment:''
                 })
             }
@@ -147,7 +154,7 @@ class Posteos extends Component {
     
                     {/* Modal para comentarios */}
     
-                {/* {   this.state.showModal ?
+                {   this.state.showModal ?
                     <Modal style={styles.modalContainer}
                         visible={this.state.showModal}
                         animationType='slide'
@@ -156,10 +163,10 @@ class Posteos extends Component {
                         <TouchableOpacity onPress={()=>this.hideModal()}>
                             <Text style={styles.closeButton}>X</Text>
                         </TouchableOpacity> 
-                        {this.props.data.data.comments.length > 0 ?
+                        {this.state.comments.length > 0 ? //si la lista tiene mas de 0, hago la flat, sino no com
                             <FlatList
-                        data={this.props.data.data.comments}
-                        keyExtractor={comment=>comment.createdAt.toString()}
+                        data={this.state.comments}
+                        keyExtractor={comment=>comment.createdAt.toString()} //equivalente al id, uso la hora del posteo, lo paso a texto pq necesito para keyExt
                         renderItem={({item})=>(<Text>{item.author}: {item.comment}</Text> )}/>
                         :
                         <Text>No hay comentarios</Text>
@@ -182,8 +189,10 @@ class Posteos extends Component {
                         </View>
                     </Modal>    
                     :
-                    <Text></Text>
-                }  */}
+                    <TouchableOpacity onPress={()=>this.showModal()}>
+                    <Text style={styles.closeButton}>Ver Comentarios</Text>
+                </TouchableOpacity> 
+                } 
                 
             <Text style={styles.Titulo}>{this.props.data.data.texto}</Text>
             </View>

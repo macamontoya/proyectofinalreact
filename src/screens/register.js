@@ -31,7 +31,7 @@ export default class register extends Component {
                     keyboardType='email-address'
                     secureTextEntry={true}
                 />
-                <TouchableOpacity  onPress={()=>this.props.register(this.state.email, this.state.password)} >
+                <TouchableOpacity  onPress={()=>this.props.register(this.state.email, this.state.password, this.state.userName)} >
                     <Text >Registrarse</Text>    
                 </TouchableOpacity>
             </View>
