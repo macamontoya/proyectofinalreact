@@ -10,8 +10,7 @@ export default class profile extends Component {
     }
     componentDidMount(){
 
-        db.collection('posts').orderBy('createdAt', 'desc').where('owner','==',this.props.user.email).onSnapshot //te trae apenas lo pedis los post donde el dueno es el email del usuario
-        (docs =>{  //documentos que trae onSnapshots
+        db.collection('posts').orderBy('createdAt', 'desc').where('owner','==',this.props.user.email).onSnapshot (docs =>{  //documentos que trae onSnapshots //comentario snapshot te trae apenas lo pedis los post donde el dueno es el email del usuario
             let posts = []; //le agrego un objeto donde guardo el id y la data seteamos a post vacio
             docs.forEach( doc => { 
             posts.push({

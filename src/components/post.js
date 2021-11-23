@@ -23,10 +23,10 @@ class Posteos extends Component {
             this.setState({ //ponemos el estado segun los likes que tenga guardados en firebase
                 likes: this.props.data.data.likes.length, //guardo la cantidad de likes que hay en el post
                 MeGusta: this.props.data.data.likes.includes(auth.currentUser.email) // esta  mi like en la lista
-            }) //preguntamos si el usuario likeo la foto, si esta likeadp marco el like.
+            }) //preguntamos si el usuario likeo la foto, si esta likeado marco el like.
        
         }
-        if(this.props.data.data.comments){
+        if(this.props.data.data.comments){ //mismo concepto de likes
             this.setState({
                 comments:this.props.data.data.comments
             })
@@ -39,7 +39,7 @@ class Posteos extends Component {
         let post = db.collection("posts").doc(this.props.data.id); 
 
         post.update({ //actualiza el campo likes
-            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)// el valor que estaba antes, como es una lista de emails ()arrayunion sumale mi like 
+            likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)// el valor que estaba antes, como es una lista de emails ()arrayunion sumale mi like, actualiza
         })
         .then(() => {
             this.setState({
@@ -70,7 +70,7 @@ class Posteos extends Component {
         }
          //desde newpost le paso la info al post
      
-         openModal() {
+         openModal() { //hace que vea o que deje de ver la lista de comentarios (open y close)
             this.setState({
                 showModal: true
             })
@@ -82,7 +82,7 @@ class Posteos extends Component {
             })
         }
     
-        guardarComentario(){
+        guardarComentario(){ //mismo que likes pero en vez de guardar el like guarda muchos datos (el comment)
             console.log('Guardando comentario...');
             let oneComment = {
                 createdAt: Date.now(),
@@ -100,7 +100,7 @@ class Posteos extends Component {
             }
             )}
     
-            showModal() {
+            showModal() { //nose pq tenemos los dos 
                 this.setState({
                     showModal: true
                 })
@@ -111,7 +111,7 @@ class Posteos extends Component {
                     showModal: false
                 })
             }
-            borrarPost = (id) => {
+            borrarPost = (id) => { //agarro db y borro lo que había.
                 db.collection('posts').doc(id).delete()
                
             }

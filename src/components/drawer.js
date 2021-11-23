@@ -8,6 +8,7 @@ import Login from '../screens/login'
 import Newpost from '../screens/newpost'
 import Profile from '../screens/profile'
 import {auth} from '../firebase/config'
+import Buscador from '../screens/buscador'
 const Drawer = createDrawerNavigator()
 export default class menu extends Component {
     constructor(){
@@ -19,8 +20,8 @@ export default class menu extends Component {
         }
         //usamos la info del login de abajo
     }
-    componentDidMount(){ //la funcion que se ejecuta cuando se carga el componente, apenas carga usa auth para preguntar si hay alguien loggeado, yo hago el mismo proceso de login
-        auth.onAuthStateChanged(user => { //auth es de firebase, me ayuda a manejar todo de los usuarios
+    componentDidMount(){ //la funcion que se ejecuta cuando se carga el componente (se refreshea la pagina), apenas carga usa auth para preguntar si hay alguien loggeado, yo hago el mismo proceso de login
+        auth.onAuthStateChanged(user => { //auth = authentication es de firebase, me ayuda a manejar todo de los usuarios
             if(user){
                 this.setState({
                     loggedIn:true,
@@ -34,7 +35,7 @@ export default class menu extends Component {
         auth.createUserWithEmailAndPassword(email, pass) //recibe dos datos, mail y contra, lo tenemos aca pq toda nuestra pagina tiene que saber si el usuario esta registrado o no, por eso usamos los params
             .then( ()=>{
                 auth.currentUser.updateProfile({
-                    displayName:user //guardo nombre us, dispName es de firebase
+                    displayName:user //guardo nombre us, dispName es de firebase, cuando se inicia esta vacio, actualizo y queda el del nuevo registrado
                 })
                 console.log('Registrado');
             })
@@ -50,7 +51,7 @@ export default class menu extends Component {
             .then( response => { //response es lo que me trae, desp guardo la info en user
                 this.setState({
                     loggedIn: true,
-                    user:response.user,
+                    user:response.user, //guarda los datos del usuario que esta loggeado
                 })
             })
             .catch(e => this.setState ({
@@ -60,7 +61,7 @@ export default class menu extends Component {
     }
 
     logout(){
-        auth.signOut() //olvidate que esta loggeado el usuario
+        auth.signOut() //olvidate que esta loggeado el usuario, vacia la info y volve al comienzo
             .then( (res)=>{
                 this.setState({
                     user:'',
@@ -80,6 +81,7 @@ export default class menu extends Component {
                     <Drawer.Screen name="home" component= {()=><Home/>}/>
                     <Drawer.Screen name="newpost" component= {(drawerProps)=><Newpost drawerProps ={drawerProps}/>}/> 
                     <Drawer.Screen name="profile" component= {()=><Profile user={this.state.user}logout={(email, pass)=>this.logout(email, pass)}/>}/>
+                    <Drawer.Screen name="buscar" component= {()=><Buscador/>}/>
                 </Drawer.Navigator>
 
                 ):(
