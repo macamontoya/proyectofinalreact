@@ -23,12 +23,12 @@ class Posteos extends Component {
             this.setState({ //ponemos el estado segun los likes que tenga guardados en firebase
                 likes: this.props.data.data.likes.length, //guardo la cantidad de likes que hay en el post
                 MeGusta: this.props.data.data.likes.includes(auth.currentUser.email) // esta  mi like en la lista
-            }) //preguntamos si el usuario likeo la foto, si esta likeado marco el like.
+            }) //preguntamos si el usuario likeo la foto, si esta likeado marco el like, el punto includes agarra la lista de los likes y pregunta si adentro de la lista esta lo que yo busque el email.
        
         }
-        if(this.props.data.data.comments){ //mismo concepto de likes
+        if(this.props.data.data.comments){ //hay lista de comentarios?
             this.setState({
-                comments:this.props.data.data.comments
+                comments:this.props.data.data.comments // si hay guardamela en el estado, porque no importa si hay o no un comentario?
             })
 
         }
@@ -82,7 +82,7 @@ class Posteos extends Component {
             })
         }
     
-        guardarComentario(){ //mismo que likes pero en vez de guardar el like guarda muchos datos (el comment)
+        guardarComentario(){ //mismo que likes pero en vez de guardar el like guarda un objeto con varios datos (el comment)
             console.log('Guardando comentario...');
             let oneComment = {
                 createdAt: Date.now(),
@@ -95,7 +95,7 @@ class Posteos extends Component {
             .then(()=>{
                 this.setState({
                  comments:this.props.data.data.comments, //actualizo la lista de comments 
-                    comment:''
+                    comment:'' 
                 })
             }
             )}
@@ -145,11 +145,7 @@ class Posteos extends Component {
                                 <Image style={styles.Icons} source={{  uri: "https://img.icons8.com/fluency/48/000000/like.png"}}></Image>
                             </TouchableOpacity>
                     }
-                    {/* <TouchableOpacity style={styles.button} onPress={() => this.openModal()}>
-                        <Text>{this.props.data.data.comments.length}</Text>
-                        <Image style={styles.Icons} source={{uri: "https://img.icons8.com/material-outlined/24/000000/speech-bubble.png"}}></Image>
-                    </TouchableOpacity> */}  
-                    {/* ESTO LO VAMOS A USAR PARA LOS COMENTARIOS */}
+                
                 </View>
     
                     {/* Modal para comentarios */}

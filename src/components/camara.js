@@ -69,8 +69,7 @@ clear(){
             <View style={styles.container}>
             {
                 this.state.permiso ? // tengo permiso para usarla si es verdadera
-                    this.state.mostrarcamara === false ? //si es falso muestro la foto
-                    //Render del preview
+                    this.state.mostrarcamara === false ? //no muestra la camara
                     <React.Fragment>
                         <Image //muestra la foto
                             style={styles.cameraBody}
@@ -88,15 +87,13 @@ clear(){
                         </View>
                     </React.Fragment>
                     :
-                    //render de la cámara
+                    //aca muestra la cámara
                     <View style={styles.container}> 
-                    {/* adentro tiene la camara y el boton sacar foto */}
                         <Camera
                             style={styles.cameraBody}
                             type={Camera.Constants.Type.back}
                             ref={ reference => this.camera = reference }
                         /> 
-                        {/* componente camara, type que camara frontal o de atras. ref, que camara mostramos  */}
 
                         <TouchableOpacity style={styles.button} onPress={()=>this.takePicture()}> 
                             <Text>Sacar Foto</Text>

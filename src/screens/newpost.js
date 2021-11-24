@@ -31,6 +31,7 @@ export default class newpost extends Component {
         .then( ()=>{ //Limpiar el form de carga
             this.setState({
                 textoPost:'',
+                mostrarcamara: true,
             })
             this.props.drawerProps.navigation.navigate('home')
         })
