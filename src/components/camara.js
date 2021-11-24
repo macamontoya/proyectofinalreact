@@ -12,10 +12,10 @@ export default class camara extends Component {
             foto: "",
             mostrarcamara: true,
         }
-        this.camera
+        this.camera //autoreferencia , es un componente que se instala de exxpo camara
     }
     componentDidMount(){ 
-        Camera.requestCameraPermissionsAsync() //preguntamos si el usuario da permiso para sacar fotos
+        Camera.requestCameraPermissionsAsync() 
             .then(()=>{
                 this.setState({
                     permiso: true, 
@@ -24,11 +24,11 @@ export default class camara extends Component {
             .catch( error => console.log(error))
     }
 
-    takePicture(){ //apreta el boton y se ejecuta esta funcion.
-        this.camera.takePictureAsync() //saca la foto
+    takePicture(){ 
+        this.camera.takePictureAsync() 
             .then((photo)=>{ // guardamos en el estado
                 this.setState({
-                    foto: photo.uri, //guarda el link d la foto.
+                    foto: photo.uri, 
                     mostrarcamara:false
                 }) 
 
@@ -36,10 +36,10 @@ export default class camara extends Component {
             .catch( error => console.log(error))
     }
 
-    savePhoto(){ //guardo la foto en la base de datos
-        fetch(this.state.foto) //anda a buscar esa foto al link
-            .then( res => res.blob())//trae la foto, la traducimos a blob (res la foto)
-            .then( image =>{ //una ves traducida la llamamos image 
+    savePhoto(){ 
+        fetch(this.state.foto) 
+            .then( res => res.blob())
+            .then( image =>{ 
                 const ref = storage.ref(`photos/${Date.now()}.jpg`) //ref la guardamos en firebase, creamos el nombre de la foto y donde la vamos a guardar: la fecha.jpg
                 ref.put(image) //mete la imagen traducida en firebase
                     .then(()=>{

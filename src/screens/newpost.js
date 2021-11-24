@@ -23,12 +23,12 @@ export default class newpost extends Component {
         db.collection('posts').add({ // a la collection de post agregale este post, adentro tiene los datos que le voy a guardar al post
             owner: auth.currentUser.email, 
             texto: this.state.textoPost, 
-            createdAt: Date.now(), //js
+            createdAt: Date.now(), 
             photo: this.state.url, // me guarda en la base de datos la url q es el link d la imagen
             likes: [],
             comentarios:[],
         })
-        .then( ()=>{ //puedo crear otro post
+        .then( ()=>{ 
             this.setState({
                 textoPost:'',
                 mostrarcamara: true,
