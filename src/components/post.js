@@ -186,7 +186,7 @@ class Posteos extends Component {
                     </Modal>    
                     :
                     <TouchableOpacity onPress={()=>this.showModal()}>
-                    <Text style={styles.closeButton}>Ver Comentarios</Text>
+                    <Text style={styles.closeButton}>Comentarios</Text>
                 </TouchableOpacity> 
                 } 
                 
@@ -200,15 +200,15 @@ class Posteos extends Component {
         container:{
             flex: 1,
             display: "flex", 
-            backgroundColor: '#fff',
+            backgroundColor: '#D1D1D2',
             alignItems: 'left',
             justifyContent: 'left',
             borderRadius: 10,
-            borderColor: '#00ADB5',
+            borderColor: '#grey',
             borderWidth: 1, 
             margin: 10,
             marginBottom: 10,
-            shadowColor: '#171717',
+            shadowColor: '#D1D1D2',
             shadowOffset: {width: -2, height: 4},
             shadowOpacity: 0.2,
             shadowRadius: 3,
@@ -270,27 +270,19 @@ class Posteos extends Component {
             flexDirection: "row",
     
         },
-        buttonDelete:{
-            
-            alignItems: "center",
-            justifyContent: "center",
-            margin: 5,
-            flexDirection: "row",
-            backgroundColor: '#00ADB5',
-        },
-    
-        
+     
+
         buttonText:{
-            color: '#ffffff',
+            color: '#000000',
             fontSize: 15,
         },
         closeButton:{
             fontWeight: 'bold',
-            color: '#ffffff',
+            color: '#BBBBDD',
             fontSize: 20,
             alignSelf: 'flex-end',
             padding: 10,
-            backgroundColor: '#dc3545',
+            backgroundColor: '#BBBBDD',
             marginTop:2,
             borderRadius: 10,
         },
