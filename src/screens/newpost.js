@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native' //componentes core (predefinidos de react)
-import Camara from '../components/camara' //usamos este componente para crear un posteo 
+import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native' 
+import Camara from '../components/camara' 
 import { auth, db } from '../firebase/config' 
 
 export default class newpost extends Component {
@@ -12,7 +12,7 @@ export default class newpost extends Component {
             textoPost: ''
         }
     }
-    onImageUpload(url){ //le entra a una url que es el link de la imagen, yo tengo el url porque ya saq la foto, voy a gaurdar dentro de la url la informacion de img.
+    onImageUpload(url){ 
         this.setState({
             mostrarcamara: false,
             url: url
@@ -20,11 +20,11 @@ export default class newpost extends Component {
     }
     submitPost(){
 
-        db.collection('posts').add({ // a la collection de post agregale este post, adentro tiene los datos que le voy a guardar al post
+        db.collection('posts').add({ 
             owner: auth.currentUser.email, 
             texto: this.state.textoPost, 
             createdAt: Date.now(), 
-            photo: this.state.url, // me guarda en la base de datos la url q es el link d la imagen
+            photo: this.state.url, 
             likes: [],
             comentarios:[],
         })
@@ -41,10 +41,10 @@ export default class newpost extends Component {
         return (
             <View style= {styles.container}>
                 {this.state.mostrarcamara ? 
-                <Camara onImageUpload={(url) => this.onImageUpload(url)}/>:
+                <Camara onImageUpload={(url) => this.onImageUpload(url)}/>: //las props que usa el componente hijo para mandar la url y la segunda es la funcion desarrollada en este componente
                 <View >
                 <TextInput
-                    onChangeText={(text)=>this.setState({textoPost: text})} //guardo dentro de texto post la informacion que se escribe
+                    onChangeText={(text)=>this.setState({textoPost: text})} 
                     placeholder='Escribí aquí'
                     keyboardType='default'
                     multiline
