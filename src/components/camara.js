@@ -8,25 +8,25 @@ export default class camara extends Component {
     constructor(props) { 
         super(props) 
         this.state={
-            permiso: false,
+            permiso: false, 
             foto: "",
-            mostrarcamara: true,
+            mostrarcamara: true, 
         }
-        this.camera //autoreferencia , es un componente que se instala de exxpo camara
+        this.camera //autoreferencia , es un componente que se instala de expo camara
     }
     componentDidMount(){ 
         Camera.requestCameraPermissionsAsync() 
-            .then(()=>{
+            .then(()=>{ 
                 this.setState({
                     permiso: true, 
                 })
             })
-            .catch( error => console.log(error))
+            .catch( error => console.log(error)) 
     }
 
     takePicture(){ 
         this.camera.takePictureAsync() 
-            .then((photo)=>{ // guardamos en el estado
+            .then((photo)=>{ // guardamos en el estado 
                 this.setState({
                     foto: photo.uri, 
                     mostrarcamara:false
@@ -38,14 +38,14 @@ export default class camara extends Component {
 
     savePhoto(){ 
         fetch(this.state.foto) 
-            .then( res => res.blob())
+            .then( res => res.blob()) 
             .then( image =>{ 
-                const ref = storage.ref(`photos/${Date.now()}.jpg`) //ref la guardamos en firebase, creamos el nombre de la foto y donde la vamos a guardar: la fecha.jpg
+                const ref = storage.ref(`photos/${Date.now()}.jpg`) 
                 ref.put(image) //mete la imagen traducida en firebase
                     .then(()=>{
                         ref.getDownloadURL() //traeme el nuevo link de donde guardaste la foto
                             .then( url => { //ejecutamos la funcion
-                                this.props.onImageUpload(url); 
+                                this.props.onImageUpload(url); //por props le pasa la url al componente padre
                                 this.setState({ 
                                     foto:'', //borramos el link de la foto porque esta guardada en firebase
                                 })
@@ -68,12 +68,12 @@ clear(){
         return (
             <View style={styles.container}>
             {
-                this.state.permiso ? // tengo permiso para usarla si es verdadera
-                    this.state.mostrarcamara === false ? //no muestra la camara
-                    <React.Fragment>
-                        <Image //muestra la foto
+                this.state.permiso ? 
+                    this.state.mostrarcamara === false ? 
+                    <React.Fragment> 
+                        <Image 
                             style={styles.cameraBody}
-                            source={{uri:this.state.foto}} //lo que nosotros nos guardamos
+                            source={{uri:this.state.foto}} //sacame la foto del link temporario
                         /> 
                         <View>
                             <TouchableOpacity onPress={()=>this.savePhoto()}> 
@@ -88,11 +88,11 @@ clear(){
                     </React.Fragment>
                     :
                     //aca muestra la cámara
-                    <View style={styles.container}> 
+                    <View style={styles.container}>  
                         <Camera
                             style={styles.cameraBody}
                             type={Camera.Constants.Type.back}
-                            ref={ reference => this.camera = reference }
+                            ref={ reference => this.camera = reference } //referenciarte a this.camera
                         /> 
 
                         <TouchableOpacity style={styles.button} onPress={()=>this.takePicture()}> 
@@ -100,8 +100,7 @@ clear(){
                         </TouchableOpacity>
                     </View> 
                 :
-                //render mensaje
-                <Text>No tienes permisos para usar la cámara</Text> // si no tengo permiso
+                <Text>No tienes permisos para usar la cámara</Text> 
 
             }
             </View>
