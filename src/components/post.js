@@ -200,18 +200,20 @@ class Posteos extends Component {
         container:{
             flex: 1,
             display: "flex", 
-            backgroundColor: '#D1D1D2',
+            backgroundColor: '#C2A9C5',
             alignItems: 'left',
             justifyContent: 'left',
             borderRadius: 10,
-            borderColor: '#grey',
+            borderColor: '#C2A9C8',
             borderWidth: 1, 
             margin: 10,
             marginBottom: 10,
-            shadowColor: '#D1D1D2',
+            shadowColor: '#fff',
             shadowOffset: {width: -2, height: 4},
             shadowOpacity: 0.2,
             shadowRadius: 3,
+            width: '100%',
+        
         },
         Titulo:{
             fontSize: 15,
@@ -220,6 +222,7 @@ class Posteos extends Component {
             marginLeft: 5,
             width: '100%',
             textAlign: 'left',
+            backgroundColor: "#C2A9C5",
     
         },
         Descripcion:{
@@ -233,7 +236,7 @@ class Posteos extends Component {
         // Foto
         Foto:{
             width: '100%',
-            height: 200,
+            height: 600,
             borderColor: '#00ADB5',
             marginBottom: 5,
         },  
@@ -241,6 +244,7 @@ class Posteos extends Component {
             // border radius on top
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
+            alignSelf:"center",
             width: '100%',
             height: '100%',
         },
@@ -270,19 +274,27 @@ class Posteos extends Component {
             flexDirection: "row",
     
         },
-     
-
+        buttonDelete:{
+            
+            alignItems: "center",
+            justifyContent: "center",
+            margin: 5,
+            flexDirection: "row",
+            backgroundColor: '#00ADB5',
+        },
+    
+        
         buttonText:{
-            color: '#000000',
-            fontSize: 15,
+            color: '#fff',
+            fontSize: 20,
         },
         closeButton:{
             fontWeight: 'bold',
-            color: '#BBBBDD',
+            color: '#ffffff',
             fontSize: 20,
             alignSelf: 'flex-end',
             padding: 10,
-            backgroundColor: '#BBBBDD',
+            backgroundColor: '#dc3545',
             marginTop:2,
             borderRadius: 10,
         },

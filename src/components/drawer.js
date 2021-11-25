@@ -78,16 +78,16 @@ export default class menu extends Component {
                 {/* cuando no es true loggin, me muestra solo register y login, sino me ingresa a la página  */}
                 {this.state.loggedIn ? 
                 ( <Drawer.Navigator>
-                    <Drawer.Screen name="home" component= {()=><Home/>}/>
-                    <Drawer.Screen name="newpost" component= {(drawerProps)=><Newpost drawerProps ={drawerProps}/>}/> 
-                    <Drawer.Screen name="profile" component= {()=><Profile user={this.state.user}logout={(email, pass)=>this.logout(email, pass)}/>}/>
-                    <Drawer.Screen name="buscar" component= {()=><Buscador/>}/>
+                    <Drawer.Screen name="HOME" component= {()=><Home/>}/>
+                    <Drawer.Screen name="NEW POST" component= {(drawerProps)=><Newpost drawerProps ={drawerProps}/>}/> 
+                    <Drawer.Screen name="MI PERFIL" component= {()=><Profile user={this.state.user}logout={(email, pass)=>this.logout(email, pass)}/>}/>
+                    <Drawer.Screen name="BUSCAR" component= {()=><Buscador/>}/>
                 </Drawer.Navigator>
 
                 ):(
                     <Drawer.Navigator>
-                    <Drawer.Screen name="register" component= {()=><Register register={(email, pass, user)=>this.register(email, pass, user)}/>}/>
-                    <Drawer.Screen name="login" component= {()=><Login error ={this.state.error} login={(email, pass)=>this.login(email, pass)}/>}/>
+                    <Drawer.Screen name="REGISTRARME" component= {()=><Register register={(email, pass, user)=>this.register(email, pass, user)}/>}/>
+                    <Drawer.Screen name="LOG IN" component= {()=><Login error ={this.state.error} login={(email, pass)=>this.login(email, pass)}/>}/>
                 </Drawer.Navigator>
                 )}
                 
