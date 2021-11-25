@@ -21,7 +21,7 @@ export default class menu extends Component {
         //usamos la info del login de abajo
     }
     componentDidMount(){ //la funcion que se ejecuta cuando se carga el componente (se refreshea la pagina), apenas carga usa auth para preguntar si hay alguien loggeado, yo hago el mismo proceso de login
-        auth.onAuthStateChanged(user => { //auth = authentication es de firebase, me ayuda a manejar todo de los usuarios
+        auth.onAuthStateChanged(user => { 
             if(user){
                 this.setState({
                     loggedIn:true,
@@ -35,7 +35,7 @@ export default class menu extends Component {
         auth.createUserWithEmailAndPassword(email, pass) //recibe dos datos, mail y contra, lo tenemos aca pq toda nuestra pagina tiene que saber si el usuario esta registrado o no, por eso usamos los params
             .then( ()=>{
                 auth.currentUser.updateProfile({
-                    displayName:user //guardo nombre us, dispName es de firebase, cuando se inicia esta vacio, actualizo y queda el del nuevo registrado
+                    displayName:user 
                 })
                 console.log('Registrado');
             })
@@ -70,7 +70,7 @@ export default class menu extends Component {
             })
             .catch()
     }
-    // atentis a esto lo tomamos de lo de ale
+    
     //Un drawer para cada página, trae cada una de las pantallas, el Navigator es la caja grande con todas las pantallas. 
     render() {
         return (
